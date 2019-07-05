@@ -34,11 +34,12 @@ type Span struct {
 }
 
 func Format(span Span) (output string) {
-	output += blue(span.Service) + ":" + green(span.Resource)
+	output += blue(span.Service)
 	if span.Type != nil {
-		output += " " + cyan(*span.Type)
+		output += ":" + cyan(*span.Type)
 	}
 	output += " " + time.Unix(0, int64(span.Start)).Format("15:04:05.000") + " - " + time.Unix(0, int64(span.Start+span.Duration)).Format("15:04:05.000")
+	output +=  ": " + green(span.Resource)
 	return
 }
 
