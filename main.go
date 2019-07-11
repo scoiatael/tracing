@@ -38,6 +38,7 @@ func Format(span Span) (output string) {
 	if span.Type != nil {
 		output += ":" + cyan(*span.Type)
 	}
+	output += " " + span.Name
 	output += " " + time.Unix(0, int64(span.Start)).Format("15:04:05.000") + " - " + time.Unix(0, int64(span.Start+span.Duration)).Format("15:04:05.000")
 	output +=  ": " + green(span.Resource)
 	return
