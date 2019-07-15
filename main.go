@@ -40,7 +40,13 @@ func Format(span Span) (output string) {
 	}
 	output += " " + span.Name
 	output += " " + time.Unix(0, int64(span.Start)).Format("15:04:05.000") + " - " + time.Unix(0, int64(span.Start+span.Duration)).Format("15:04:05.000")
-	output +=  ": " + green(span.Resource)
+	output += ": " + green(span.Resource)
+
+	if span.ParentId != nil {
+		output += fmt.Sprintf(" [%d/%d <- %d]", span.TraceId, span.SpanId, *span.ParentId)
+	} else {
+		output += fmt.Sprintf(" [%d/%d]", span.TraceId, span.SpanId)
+	}
 	return
 }
 
